@@ -14,14 +14,14 @@ const jwt = require("jsonwebtoken");
 
 const bcrypt = require('bcryptjs');
 
-const port = 8000;
+const port =process.env.PORT || 8085;
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const app = express();
 
 const path = require('path')
-app.use(cors({ origin: "http://localhost:8095" }));
+app.use(cors({ origin: "http://localhost:8095"||"guns-holster.com"}));
 app.use(bodyParser.json());
 
 
@@ -50,6 +50,7 @@ app.get('/', (req, res) => {
 app.post('/api/contact1', async (req, res) => {
     try {
         const { fname, lname, contact, message } = req.body;
+        res.send('Hello World!');
         const newContact = new contactd({ fname, lname, contact, message, }); // Use the correct model name
         await newContact.save();
         res.status(201).json({ message: 'Data Send Successfully', data: newContact });
@@ -74,7 +75,7 @@ app.get('/api/contact1', async (req, res) => {
 // Set up multer for local Storage--------------------------------
 const multer = require('multer')
 // const upload = multer ({ dest: 'uploads/'});
-
+app.use('/uploads', express.static(path.join(__dirname, 'src/uploads')));
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./src/uploads/");
