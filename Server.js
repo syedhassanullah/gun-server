@@ -21,7 +21,7 @@ const cors = require('cors');
 const app = express();
 
 const path = require('path')
-app.use(cors({ origin: "http://localhost:8095"||"guns-holster.com"||"https://sitegun.netlify.app/"}));
+app.use(cors({ origin: "http://localhost:8095"||"guns-holster.com"||"https://sitegun.netlify.app"}));
 app.use(bodyParser.json());
 
 
